@@ -161,10 +161,7 @@ namespace _3OLIDTS_ErnestoVazquez_04cs
                     InsertarRegistro(nombre, apellidos, int.Parse(edad), decimal.Parse(estatura), telefono, genero);
                     MessageBox.Show("Datos ingresados correctamente");
                 }
-                else
-                {
-                    writer.WriteLine(datos);
-                }
+                writer.WriteLine(datos);
             }
             MessageBox.Show(datos, "Valores ingresados", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
