@@ -36,7 +36,7 @@ namespace _3OLIDTS_ErnestoVazquez_04cs
                 conection.Open();
 
                 string insertQuery = "INSERT INTO registros (Nombre, Apellidos, Edad, Estatura, Telefono, Genero)" +
-                    "VALUES (@Nombre, @Apellidos, @ Edad, @Estatura, @Telefono, @Genero)";
+                    "VALUES (@Nombre, @Apellidos, @Edad, @Estatura, @Telefono, @Genero)";
 
                 using (MySqlCommand command = new MySqlCommand(insertQuery, conection))
                 {
