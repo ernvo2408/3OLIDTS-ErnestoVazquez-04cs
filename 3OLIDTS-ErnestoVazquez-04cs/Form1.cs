@@ -143,27 +143,47 @@ namespace _3OLIDTS_ErnestoVazquez_04cs
             {
                 genero = "Masculino";
             }
-            string datos = $"Nombre: {nombre}\rApellidos: {apellidos}\r" +
+
+            if (EsEnteroValido(edad) && EsDecimalValido(estatura) && EsEnteroValido10Digitos(telefono) && EsTextoValido(nombre) && EsTextoValido(apellidos))
+            {
+                string datos = $"Nombre: {nombre}\rApellidos: {apellidos}\r" +
                 $"Telefono: {telefono}\rEstatura: {estatura}\r" +
                 $"Edad: {edad}\rGenero: {genero}";
 
-            //string ruta = "D:/Desktop/Prog Avanzada 3°O/3OLIDTS-250902.txt";
-            //string ruta = "D:\\Desktop\\Prog Avanzada 3°O\\3OLIDTS-250902.txt";
-            string ruta = @"D:\Desktop\Prog Avanzada 3°O\3OLIDTS-250902.txt";
-            bool archivoExiste = File.Exists(ruta);
-            using(StreamWriter writer = new StreamWriter(ruta, true))
-            {
-                if (archivoExiste)
+                //string ruta = "D:/Desktop/Prog Avanzada 3°O/3OLIDTS-250902.txt";
+                //string ruta = "D:\\Desktop\\Prog Avanzada 3°O\\3OLIDTS-250902.txt";
+                string ruta = @"D:\Desktop\Prog Avanzada 3°O\3OLIDTS-250902.txt";
+                bool archivoExiste = File.Exists(ruta);
+                if (archivoExiste == false)
                 {
-                    //Si el archivo existe, añade un separador antes del nuevo
-                    writer.WriteLine();
-                    //Programacion de funcionalidad de insertar SQL
-                    InsertarRegistro(nombre, apellidos, int.Parse(edad), decimal.Parse(estatura), telefono, genero);
-                    MessageBox.Show("Datos ingresados correctamente");
+                    //Si el archivo existe, añadir un separador antes del nuevo registro
+                    File.WriteAllText(ruta, datos);
                 }
-                writer.WriteLine(datos);
+                else
+                {
+                    //Verificar si el archivo ya existe
+                    using (StreamWriter writer = new StreamWriter(ruta, true))
+                    {
+                        if (archivoExiste)
+                        {
+                            //Si el archivo existe, añade un separador antes del nuevo
+                            writer.WriteLine();
+                        }
+                        writer.WriteLine(datos);
+                        //Programacion de funcionalidad de insertar SQL
+                        InsertarRegistro(nombre, apellidos, int.Parse(edad), decimal.Parse(estatura), telefono, genero);
+                        MessageBox.Show(datos, "Valores ingresados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+                //Mostrar un mensaje con los datos capturados
+                //MessageBox.Show(datos, "Valores ingresados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            MessageBox.Show(datos, "Valores ingresados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+                MessageBox.Show("Por favor, ingrese datos validos en los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }
